@@ -21,6 +21,9 @@ const Users: Record<string, User> = {
 };
 
 export const worker = setupWorker(
+  http.post("/token", () => {
+    return HttpResponse.json({ token: "my-token" });
+  }),
   http.get("/users/:id", ({ params, request }) => {
     const token = request.headers.get("Authorization");
 

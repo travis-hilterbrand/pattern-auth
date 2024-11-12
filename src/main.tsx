@@ -3,10 +3,20 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+import { getAuthToken } from "./api/auth.ts";
 
-axios.interceptors.request.use((request) => {
-  request.headers["Authorization"] = `Bearer my-token`;
-  return request;
+let storedToken = "";
+axios.interceptors.request.use(async (config) => {
+  if (config.url?.includes("token")) {
+    return config;
+  }
+
+  if (!storedToken) {
+    const { token } = await getAuthToken();
+    storedToken = token;
+  }
+  config.headers.Authorization = `Bearer ${storedToken}`;
+  return config;
 });
 
 async function enableMocking() {
