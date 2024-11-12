@@ -1,3 +1,4 @@
+import axios from "axios";
 import { sleep } from "../utils";
 
 export type User = {
@@ -8,6 +9,6 @@ export type User = {
 
 export const getUser = async (id: string): Promise<User> => {
   await sleep(300); // simulate slow network
-  const response = await fetch(`/users/${id}`);
-  return response.json();
+  const response = await axios.get(`/users/${id}`);
+  return response.data;
 };
