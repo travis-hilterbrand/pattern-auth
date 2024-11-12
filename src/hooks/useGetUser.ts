@@ -3,10 +3,10 @@ import { User, getUser } from "../api/user";
 import { USER_QUERY_KEY } from "./constants";
 
 export const useGetUser = (id: string) => {
-  const { data, error, isLoading } = useQuery<User>({
+  const { data, error, isLoading, refetch } = useQuery<User>({
     queryKey: [USER_QUERY_KEY, id],
     queryFn: () => getUser(id),
     retry: 0,
   });
-  return { data, error, isLoading };
+  return { data, error, isLoading, refetch };
 };
