@@ -20,7 +20,7 @@ export const UserCard = ({ id }: UserCardProps) => {
     <Container>
       {isLoading === true && <span>Loading...</span>}
       {error && <span>Error</span>}
-      {data && (
+      {data && !error && (
         <div>
           <div style={{ fontWeight: 700 }}>{data.name}</div>
           <div style={{ textAlign: "center" }}>

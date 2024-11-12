@@ -22,12 +22,18 @@ const Users: Record<string, User> = {
 
 export const worker = setupWorker(
   http.post("/token", () => {
-    return HttpResponse.json({ token: "my-token" });
+    return HttpResponse.json({ token: `token-${new Date().getTime()}` });
   }),
   http.get("/users/:id", ({ params, request }) => {
     const token = request.headers.get("Authorization");
 
     if (token) {
+      const split = token.split("-");
+      const date = new Date(parseInt(split[1]));
+      if (Date.now() - date.getTime() > 5000) {
+        return new HttpResponse(null, { status: 401 });
+      }
+
       const id = params.id as string;
       const user = Users[id];
       if (user) {
