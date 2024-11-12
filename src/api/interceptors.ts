@@ -2,6 +2,10 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { getAuthToken } from "./auth";
 
 let storedToken = "";
+export const clearToken = () => {
+  storedToken = "";
+};
+
 axios.interceptors.request.use(async (config) => {
   if (config.url?.includes("token")) {
     return config;

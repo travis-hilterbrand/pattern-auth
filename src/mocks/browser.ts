@@ -30,7 +30,7 @@ export const worker = setupWorker(
     if (token) {
       const split = token.split("-");
       const date = new Date(parseInt(split[1]));
-      if (Date.now() - date.getTime() > 5000) {
+      if (Date.now() - date.getTime() > 15000) {
         return new HttpResponse(null, { status: 401 });
       }
 

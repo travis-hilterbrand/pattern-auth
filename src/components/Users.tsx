@@ -1,3 +1,4 @@
+import { clearToken } from "../api/interceptors";
 import { useGetUser } from "../hooks/useGetUser";
 import { UserCard } from "./UserCard";
 
@@ -18,6 +19,7 @@ export const Users = () => {
       <button disabled={isFetching} onClick={() => refetchAll()}>
         Refetch
       </button>
+      <button onClick={() => clearToken()}>Clear token</button>
       <hr />
       <div>
         <UserCard id={"1"} />
