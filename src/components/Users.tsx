@@ -1,4 +1,5 @@
 import { clearToken } from "../api/interceptors";
+import { useGetTimeout } from "../hooks/useGetTimeout";
 import { useGetUser } from "../hooks/useGetUser";
 import { UserCard } from "./UserCard";
 
@@ -7,6 +8,8 @@ export const Users = () => {
   const { isFetching: isFetching2, refetch: refetch2 } = useGetUser("2");
   const { isFetching: isFetching3, refetch: refetch3 } = useGetUser("3");
   const isFetching = isFetching1 || isFetching2 || isFetching3;
+
+  useGetTimeout();
 
   const refetchAll = () => {
     refetch1();

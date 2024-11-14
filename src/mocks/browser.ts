@@ -1,6 +1,7 @@
 import { http, HttpResponse } from "msw";
 import { setupWorker } from "msw/browser";
 import { User } from "../api/user";
+import { sleep } from "../utils";
 
 const Users: Record<string, User> = {
   "1": {
@@ -42,5 +43,9 @@ export const worker = setupWorker(
       return new HttpResponse(null, { status: 404 });
     }
     return new HttpResponse(null, { status: 401 });
+  }),
+  http.get("/timeout", async () => {
+    await sleep(10 * 1000);
+    return new HttpResponse(null, { status: 500 });
   })
 );
